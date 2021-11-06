@@ -48,3 +48,26 @@ forActivities.addEventListener('change', (e) => {
     totalTag.innerHTML = `Total: $${totalCost}`;
 });
 
+// updates payment info field base on the payment type selected
+const paymentSelect = document.getElementById('payment');
+const creditCard = document.getElementById('credit-card');
+const paypal = document.getElementById('paypal');
+const bitcoin = document.getElementById('bitcoin');
+paypal.hidden = true;
+bitcoin.hidden = true;
+paymentSelect.children[1].selected = true;
+paymentSelect.addEventListener('change', (e) => {
+    if (e.target.value === 'bitcoin') {
+        bitcoin.hidden = false;
+        paypal.hidden = true;
+        creditCard.hidden = true;
+    } else if (e.target.value === 'paypal') {
+        paypal.hidden = false;
+        bitcoin.hidden = true;
+        creditCard.hidden = true;
+    } else {
+        creditCard.hidden = false;
+        paypal.hidden = true;
+        bitcoin.hidden = true; 
+    };
+});
