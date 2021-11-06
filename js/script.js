@@ -14,7 +14,7 @@ roleSelect.addEventListener('change', () => {
     };
 });
 
-// Updates T-shirt color options based on the theme selected
+// updates T-shirt color options based on the theme selected
 const designSelect = document.getElementById('design');
 const colorSelect = document.getElementById('color');
 const colorOptions = colorSelect.children;
@@ -34,5 +34,17 @@ designSelect.addEventListener('change', (e) => {
     };
 });
 
-
+// updates the total cost for activities selected 
+const forActivities = document.getElementById('activities');
+const totalTag = document.getElementById('activities-cost');
+let totalCost = 0;
+forActivities.addEventListener('change', (e) => {
+    const activityCost = e.target.getAttribute('data-cost');
+    if (e.target.checked) {
+        totalCost += +activityCost;
+    } else {
+        totalCost -= +activityCost;
+    };
+    totalTag.innerHTML = `Total: $${totalCost}`;
+});
 
