@@ -48,6 +48,17 @@ forActivities.addEventListener('change', (e) => {
     totalTag.innerHTML = `Total: $${totalCost}`;
 });
 
+// add and remove focus class from activity options 
+const checkboxes = document.querySelectorAll('input[type=checkbox]');
+checkboxes.forEach(checkbox => {
+    checkbox.addEventListener('focus', () => {
+        checkbox.parentElement.classList.add('focus');
+    });
+    checkbox.addEventListener('blur', () => {
+        checkbox.parentElement.classList.remove('focus');
+    });
+});
+
 // updates payment info field base on the payment type selected
 const paymentSelect = document.getElementById('payment');
 const creditCard = document.getElementById('credit-card');
@@ -71,3 +82,101 @@ paymentSelect.addEventListener('change', (e) => {
         bitcoin.hidden = true; 
     };
 });
+
+// form validators
+const emailInput = document.getElementById('email');
+const cardNum = document.getElementById('cc-num');
+const zipCode = document.getElementById('zip');
+const cvvNum = document.getElementById('cvv');
+const formElement = document.getElementById('form');
+formElement.addEventListener('submit', (e) => {
+    nameValid(nameInput);
+    emailValid(emailInput);
+    activitiesValid(forActivities);
+    paymentValid();
+    
+    function nameValid(name) {
+        const nameTest = /[^\s]+/;
+        if (nameTest.test(name.value) === false) {
+            e.preventDefault();
+            name.parentElement.classList.add('not-valid');
+            name.parentElement.classList.remove('valid');
+            name.parentElement.lastElementChild.style.display = 'block';
+        } else {
+            name.parentElement.classList.remove('not-valid');
+            name.parentElement.classList.add('valid');
+            name.parentElement.lastElementChild.style.display = 'none';
+        };
+    };
+
+    function emailValid(email) {
+        const emailTest = /^[\w\.-]+@[\w\.-]+\.\w{2,4}$/;
+        if (emailTest.test(email.value) === false) {
+            e.preventDefault();
+            email.parentElement.classList.add('not-valid');
+            email.parentElement.classList.remove('valid');
+            email.parentElement.lastElementChild.style.display = 'block';
+        } else {
+            email.parentElement.classList.remove('not-valid');
+            email.parentElement.classList.add('valid');
+            email.parentElement.lastElementChild.style.display = 'none';
+        };
+    };
+    
+    function activitiesValid(activities) {
+        if (totalCost === 0) {
+            e.preventDefault();
+            activities.classList.add('not-valid');
+            activities.classList.remove('valid');
+            activities.lastElementChild.style.display = 'block';
+        } else {
+            activities.classList.remove('not-valid');
+            activities.classList.add('valid');
+            activities.lastElementChild.style.display = 'none';
+        };
+    };
+       
+    function paymentValid() {
+        const payment = document.getElementById('payment');
+        const cardTest = /^[\d]{13,16}$/;
+        const zipTest = /^[\d]{5}$/;
+        const cvvTest = /^[\d]{3}$/;
+        if (payment.value === 'credit-card') {
+            if (cardTest.test(cardNum.value) === false) {
+                e.preventDefault();
+                cardNum.parentElement.classList.add('not-valid');
+                cardNum.parentElement.classList.remove('valid');
+                cardNum.parentElement.lastElementChild.style.display = 'block';
+            } else {
+                cardNum.parentElement.classList.remove('not-valid');
+                cardNum.parentElement.classList.add('valid');
+                cardNum.parentElement.lastElementChild.style.display = 'none';
+            };
+
+            if (zipTest.test(zipCode.value) === false) {
+                e.preventDefault();
+                zipCode.parentElement.classList.add('not-valid');
+                zipCode.parentElement.classList.remove('valid');
+                zipCode.parentElement.lastElementChild.style.display = 'block';
+            } else {
+                zipCode.parentElement.classList.remove('not-valid');
+                zipCode.parentElement.classList.add('valid');
+                zipCode.parentElement.lastElementChild.style.display = 'none';
+            };
+
+            if (cvvTest.test(cvvNum.value) === false) {
+                e.preventDefault();
+                cvvNum.parentElement.classList.add('not-valid');
+                cvvNum.parentElement.classList.remove('valid');
+                cvvNum.parentElement.lastElementChild.style.display = 'block';
+            } else {
+                cvvNum.parentElement.classList.remove('not-valid');
+                cvvNum.parentElement.classList.add('valid');
+                cvvNum.parentElement.lastElementChild.style.display = 'none';
+            };
+        };
+    };
+});
+
+
+
