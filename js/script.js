@@ -83,7 +83,7 @@ paymentSelect.addEventListener('change', (e) => {
     };
 });
 
-// form validators
+// form validation
 const emailInput = document.getElementById('email');
 const cardNum = document.getElementById('cc-num');
 const zipCode = document.getElementById('zip');
@@ -177,6 +177,3 @@ formElement.addEventListener('submit', (e) => {
         };
     };
 });
-
-
-
