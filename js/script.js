@@ -59,7 +59,7 @@ checkboxes.forEach(checkbox => {
     });
 });
 
-// updates payment info field base on the payment type selected
+// updates payment info field based on the payment type selected
 const paymentSelect = document.getElementById('payment');
 const creditCard = document.getElementById('credit-card');
 const paypal = document.getElementById('paypal');
